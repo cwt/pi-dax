@@ -1,6 +1,6 @@
 # π-DAX — Dual Active eXtension
 
-**DAX** is a *symbiont* for the [Pi coding agent](https://github.com/anomalyco/pi-coding-agent).
+**DAX** is a *symbiont* for the [Pi coding agent](https://pi.dev).
 
 In *Star Trek: Deep Space Nine*, the Dax symbiont joins with a host, carrying the memories and wisdom of past lifetimes. **π-DAX** brings that same spirit to LLM-assisted development: a lightweight secondary model joins with the primary worker model, offering real-time peer review, loop detection, and oversight — not as a command-and-control watchdog, but as an **active partner** that helps the host produce better code.
 
