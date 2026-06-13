@@ -1,0 +1,46 @@
+{
+  "name": "pi-dax",
+  "version": "0.1.0",
+  "description": "Dual Active eXtension — a symbiont for the Pi coding agent that provides peer code review and loop prevention",
+  "type": "module",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pair-programming",
+    "code-review",
+    "loop-detection",
+    "llm"
+  ],
+  "author": "cwt114",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cwt/pi-dax.git"
+  },
+  "homepage": "https://github.com/cwt/pi-dax",
+  "bugs": {
+    "url": "https://github.com/cwt/pi-dax/issues"
+  },
+  "files": [
+    "src/",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": [
+      "./src/index.ts"
+    ]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --import tsx/esm --test ./tests/*.test.ts"
+  }
+}
