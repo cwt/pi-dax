@@ -4,11 +4,7 @@ const REVIEW_TIMEOUT_MS = 30000;
 const MAX_CONTENT_CHARS = 120000;
 
 export function escapeForPrompt(str: string): string {
-  return str
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/{/g, "&#123;")
-    .replace(/}/g, "&#125;");
+  return str;
 }
 
 export interface ReviewResult {
@@ -61,8 +57,7 @@ ${editDescription}
 Review the proposed code change carefully.
 - If it is correct, has no syntax errors, has no logic bugs, and makes sense, respond with exactly: LGTM
 - If there are any syntax errors, logic bugs, type errors, or security issues, explain them clearly in a short paragraph and provide suggestion. Do not start with LGTM.
-- Be careful: do not hallucinate syntax errors. Templating tags (like Jinja2/Django {% ... %} and {{ ... }}) are valid and should not be flagged as syntax errors. Double check all tag matching and line context before reporting unclosed tags.
-- Note: HTML tags and templating braces in the code blocks above have been escaped using standard HTML entities (like &lt;, &gt;, &#123;, &#125;) to prevent transmission stripping by local API/gateway parsers. Please interpret and review them as their raw character equivalents.${truncationWarning}`;
+- Be careful: do not hallucinate syntax errors. Templating tags (like Jinja2/Django {% ... %} and {{ ... }}) are valid and should not be flagged as syntax errors. Double check all tag matching and line context before reporting unclosed tags.${truncationWarning}`;
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), REVIEW_TIMEOUT_MS);

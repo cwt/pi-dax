@@ -1,6 +1,6 @@
 {
   "name": "pi-dax",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Dual Active eXtension — a symbiont for the Pi coding agent that provides peer code review and loop prevention",
   "type": "module",
   "keywords": [

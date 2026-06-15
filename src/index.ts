@@ -299,8 +299,7 @@ async function queryDaxLLM(recentMessages: any[]): Promise<boolean> {
 Conversation History:
 ${escapeForPrompt(formattedHistory)}
 
-Is the assistant stuck in a loop? Respond with exactly one word: YES or NO.
-Note: HTML tags and templating braces in the conversation history above have been escaped using standard HTML entities (like &lt;, &gt;, &#123;, &#125;) to prevent transmission stripping by local API/gateway parsers. Please interpret and review them as their raw character equivalents.`;
+Is the assistant stuck in a loop? Respond with exactly one word: YES or NO.`;
 
     const apiUrl = getDaxApiUrl();
     const apiKey = getDaxApiKey();
