@@ -106,6 +106,53 @@ describe("peer-review", () => {
     assert.strictEqual(res.feedback, "LGTM");
   });
 
+  it("should escape angle brackets as JSON Unicode escapes in the prompt payload", async () => {
+    mockFetchResponse = {
+      choices: [{ message: { content: "LGTM" } }]
+    };
+    const codeWithTags = "<div>Hello World</div>";
+    const originalFetch = globalThis.fetch;
+    let capturedPrompt = "";
+    globalThis.fetch = (async (url: string, init?: RequestInit) => {
+      const body = JSON.parse(init?.body as string);
+      capturedPrompt = body.messages[0].content;
+      return {
+        ok: true,
+        status: 200,
+        json: async () => mockFetchResponse
+      } as Response;
+    }) as any;
+
+    await reviewCodeChange("test.html", codeWithTags);
+    globalThis.fetch = originalFetch;
+
+    assert.ok(capturedPrompt.includes("\\u003Cdiv\\u003EHello World\\u003C/div\\u003E"));
+    assert.ok(!capturedPrompt.includes("<div>Hello World</div>"));
+  });
+
+  it("should escape angle brackets even in comparison operators", async () => {
+    mockFetchResponse = {
+      choices: [{ message: { content: "LGTM" } }]
+    };
+    const codeWithComparisons = "if (x < y && y > z) { }";
+    const originalFetch = globalThis.fetch;
+    let capturedPrompt = "";
+    globalThis.fetch = (async (url: string, init?: RequestInit) => {
+      const body = JSON.parse(init?.body as string);
+      capturedPrompt = body.messages[0].content;
+      return {
+        ok: true,
+        status: 200,
+        json: async () => mockFetchResponse
+      } as Response;
+    }) as any;
+
+    await reviewCodeChange("test.js", codeWithComparisons);
+    globalThis.fetch = originalFetch;
+
+    assert.ok(capturedPrompt.includes("if (x \\u003C y && y \\u003E z) { }"));
+  });
+
   it("should append truncation warning if code exceeds MAX_CONTENT_CHARS", async () => {
     mockFetchResponse = {
       choices: [{ message: { content: "LGTM" } }]

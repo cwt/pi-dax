@@ -4,7 +4,7 @@ const REVIEW_TIMEOUT_MS = 30000;
 const MAX_CONTENT_CHARS = 120000;
 
 export function escapeForPrompt(str: string): string {
-  return str;
+  return str.replace(/</g, "\\u003C").replace(/>/g, "\\u003E");
 }
 
 export interface ReviewResult {
@@ -53,6 +53,8 @@ export async function reviewCodeChange(
   const prompt = `You are DAX, a strict senior code reviewer symbiont joined with a coding assistant. The assistant wants to edit the file "${filename}":
 
 ${editDescription}
+
+Note: In the code block above, angle brackets are escaped as \\u003C and \\u003E (JSON Unicode escapes). Interpret them as their standard HTML angle bracket equivalents when reviewing.
 
 Review the proposed code change carefully.
 - If it is correct, has no syntax errors, has no logic bugs, and makes sense, respond with exactly: LGTM

@@ -299,6 +299,8 @@ async function queryDaxLLM(recentMessages: any[]): Promise<boolean> {
 Conversation History:
 ${escapeForPrompt(formattedHistory)}
 
+Note: In the conversation above, angle brackets are escaped as \\u003C and \\u003E (JSON Unicode escapes). Interpret them as their standard HTML angle bracket equivalents.
+
 Is the assistant stuck in a loop? Respond with exactly one word: YES or NO.`;
 
     const apiUrl = getDaxApiUrl();
