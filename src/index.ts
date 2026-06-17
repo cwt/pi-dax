@@ -163,9 +163,12 @@ export default function (pi: ExtensionAPI) {
 
     if (!approved) {
       ctx.ui.notify(`DAX: Peer rejected edit to ${file}!`, "warning");
+      const retryHint = isWrite
+        ? `The file was NOT created — the write was blocked. Call the **write** tool again with the corrected code.`
+        : `The file was NOT modified — the edit was blocked. Call the **edit** tool again with the corrected changes.`;
       return {
         block: true,
-        reason: `[DAX PEER REVIEW] The symbiont reviewed your proposed change to "${file}" and found issues:\n\n${feedback}\n\nPlease correct these issues in your next attempt.`,
+        reason: `[DAX PEER REVIEW] The symbiont reviewed your proposed change to "${file}" and found issues:\n\n${feedback}\n\n${retryHint}`,
       };
     } else if (feedback && feedback.startsWith("Review skipped")) {
       ctx.ui.notify(`DAX: ${feedback}`, "info");
